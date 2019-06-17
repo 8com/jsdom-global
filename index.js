@@ -29,6 +29,12 @@ module.exports = function globalJsdom (html, options) {
   var document = new jsdom.JSDOM(html, options)
   var window = document.window
 
+  var fetch = (request, init) => {
+    throw Error("jsdom-global does not implement window.fetch. Please make sure to always mock it.")
+  }
+  window.fetch = fetch
+  global.fetch = (request, init) => window.fetch(request, init)
+
   KEYS.forEach(function (key) {
     global[key] = window[key]
   })
@@ -40,6 +46,7 @@ module.exports = function globalJsdom (html, options) {
 
   function cleanup () {
     KEYS.forEach(function (key) { delete global[key] })
+    delete global.fetch
   }
 
   return cleanup
