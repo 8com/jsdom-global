@@ -1,6 +1,5 @@
 // See jsdom's lib/jsdom/living/index.js
 var LIVING_KEYS = [
-  'fetch',
   'Option',
   'DOMException',
   'NamedNodeMap',
